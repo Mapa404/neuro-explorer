@@ -6,7 +6,7 @@
 <title>Neuro Explorer · Aprendé cómo funciona el cerebro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#f4f7fd; --panel:#ffffff; --ink:#1238a8; --ink-strong:#0b2470; --line:#c9d4ef; --line-soft:#e3e9f7;
@@ -246,147 +246,182 @@ footer a{color:var(--ink)}
   .alist{max-height:300px}
 }
 
-/* ================= Cuaderno de anatomía ================= */
+/* ================= Atelier ================= */
 :root{
-  --bg:#f3ecdf; --panel:#fbf7ef; --ink:#b5402a; --ink-strong:#2f241b; --line:#d6c7ae; --line-soft:#e7dcc8;
-  --muted:#7a6a58; --grid:rgba(120,92,60,.10); --hatch:#ddcfb6; --chip:#efe4d1; --ok:#5f7f3a; --bad:#b5402a;
-  --draw:#5a4636; --accent2:#c98a1b;
-  --font:"IBM Plex Sans", system-ui, sans-serif; --serif:"Fraunces", Georgia, serif; --mono:"IBM Plex Mono", ui-monospace, monospace;
+  --bg:#f7f0e7; --panel:#fdf9f3; --ink:#e0735a; --ink-strong:#2b211c; --line:#eadccd; --line-soft:#f1e7db;
+  --muted:#8c7b6e; --grid:transparent; --hatch:#f0e2d3; --chip:#fbe9df; --ok:#5f9a6e; --bad:#d4553c;
+  --draw:#6b5649; --lav:#8a6fd1; --note:#fdf3c8; --noteink:#7a6a3a;
+  --font:"DM Sans", system-ui, sans-serif; --serif:"Cormorant Garamond", Georgia, serif; --mono:"DM Mono", ui-monospace, monospace;
+  --r:22px;
 }
 [data-theme="dark"]{
-  --bg:#1a1511; --panel:#231c16; --ink:#e3795f; --ink-strong:#f1e6d6; --line:#3f3329; --line-soft:#30271f;
-  --muted:#a8977f; --grid:rgba(241,230,214,.06); --hatch:#3a2f25; --chip:#2e251d; --ok:#a9c27a; --bad:#ef8a72; --draw:#d9c6ad;
+  --bg:#1a1513; --panel:#231c19; --ink:#f08a70; --ink-strong:#f3e9df; --line:#3a2e28; --line-soft:#2d2420;
+  --muted:#a8968a; --hatch:#3a2e28; --chip:#3a2620; --ok:#8fc79c; --bad:#f08a70; --draw:#d8c4b4; --lav:#b9a5f2; --note:#3b3420; --noteink:#e8d9a2;
 }
-body{background:var(--bg) radial-gradient(rgba(120,92,60,.05) 1px, transparent 1.2px) 0 0/4px 4px;font-size:14px;line-height:1.6;color:var(--ink-strong)}
-header.top{border-bottom:0;padding-bottom:16px;position:relative;gap:28px}
-header.top:after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;border-top:1px solid var(--draw);border-bottom:1px solid var(--draw);opacity:.55}
-.brand{margin-right:0}
-.seal{color:var(--ink);display:grid;place-items:center}
-.brand h1{font-family:var(--serif);font-weight:600;font-size:32px;letter-spacing:-.01em;color:var(--ink-strong);text-transform:none}
-.brand h1 em{color:var(--ink);font-weight:400}
-.brand p{font-family:var(--serif);font-style:italic;letter-spacing:.01em;text-transform:none;font-size:14px;margin-top:4px}
-.byline{margin-left:auto;text-transform:none;letter-spacing:.02em;font-style:italic;font-family:var(--serif);font-size:12px}
-.byline b{font-style:normal;font-family:var(--font);font-weight:600}
-.views{margin:0;border:0;background:none;padding:0;gap:22px}
-.views button{background:none!important;color:var(--muted)!important;font-family:var(--serif);font-size:18px;letter-spacing:0;text-transform:none;font-weight:400;padding:4px 0;border-bottom:2px solid transparent;border-radius:0}
-.views button .roman{font-style:italic;color:var(--ink);margin-right:6px;font-size:15px}
-.views button[aria-selected="true"]{color:var(--ink-strong)!important;border-bottom-color:var(--ink);font-weight:600}
-.theme{border-color:var(--line);border-radius:999px;overflow:hidden}
-.theme button{background:var(--panel)}
-.theme button[aria-pressed="true"]{background:var(--ink-strong);color:var(--panel)}
+html,body{background:var(--bg);color:var(--ink-strong);font-family:var(--font);font-size:14px;line-height:1.6}
+.wrap{max-width:1360px}
+header.top{border:0;padding:6px 0 18px;gap:24px}
+.brand{margin-right:auto;display:flex;align-items:baseline;gap:14px}
+.brand h1{font-family:var(--serif);font-weight:500;font-size:34px;letter-spacing:-.01em;color:var(--ink-strong);text-transform:none;line-height:1}
+.brand h1 sup{color:var(--ink);font-size:16px;margin-left:2px}
+.brand p{margin:0;font-family:var(--serif);font-style:italic;font-size:16px;letter-spacing:0;text-transform:none;color:var(--lav)}
+.views{margin:0;border:0;background:none;padding:0;gap:6px}
+.views button{border-radius:999px;background:transparent;color:var(--ink-strong);font-family:var(--font);font-size:14.5px;font-weight:500;letter-spacing:0;text-transform:none;padding:9px 16px;gap:8px}
+.views button:hover{background:var(--chip)}
+.views button[aria-selected="true"]{background:var(--chip);color:var(--ink-strong);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 30%,transparent)}
+.views svg.i{width:17px;height:17px}
+.byline{text-transform:none;letter-spacing:0;font-size:12.5px;color:var(--muted)}
+.byline b{display:inline;font-family:var(--serif);font-style:italic;font-size:15px;font-weight:600;color:var(--ink-strong)}
+.theme{border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--panel)}
+.theme button{background:transparent;color:var(--muted)}
+.theme button[aria-pressed="true"]{background:var(--chip);color:var(--ink)}
 
-.btn{border-radius:999px;font-family:var(--font);font-weight:600;letter-spacing:.04em;font-size:12px;color:var(--ink-strong);border-color:var(--line)}
-.btn.primary{background:var(--ink);border-color:var(--ink);color:#fbf7ef}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 18px 40px -30px rgba(120,70,40,.35)}
+.panel h2{font-family:var(--font);font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-strong)}
+.ph-head{border-bottom:1px solid var(--line-soft);padding:14px 20px}
+.btn{border-radius:999px;font-family:var(--font);text-transform:none;letter-spacing:0;font-weight:500;font-size:13.5px;color:var(--ink-strong);border:1px solid var(--line);background:var(--panel)}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
 .btn.icon{border-radius:50%}
-.speed{border-radius:999px;font-family:var(--font);color:var(--ink-strong)}
-.search{border-radius:999px;font-family:var(--font)}
-kbd{font-family:var(--mono);border-radius:4px}
+.speed,.search{border-radius:999px;font-family:var(--font);color:var(--ink-strong);border-color:var(--line);background:var(--panel)}
+kbd{font-family:var(--mono);border-radius:6px;background:var(--chip);border-color:var(--line);color:var(--ink)}
 
-.panel{border-color:var(--line);border-radius:6px;box-shadow:0 1px 0 var(--line-soft),0 10px 30px -22px rgba(60,40,20,.35)}
-.panel h2{font-family:var(--serif);font-style:italic;font-weight:600;text-transform:none;letter-spacing:0;font-size:20px;color:var(--ink-strong)}
-.ph-head{border-bottom:1px solid var(--line);position:relative}
-.ph-head:after{content:"";position:absolute;left:16px;right:16px;bottom:2px;border-bottom:1px solid var(--line-soft)}
+/* ---- atlas layout ---- */
+#viewAtlas{margin-top:4px}
+.atlas{grid-template-columns:260px minmax(0,1fr);grid-template-areas:"lib view" "info info";height:auto;gap:18px}
+.alist{grid-area:lib;height:min(720px,calc(100vh - 120px));padding:14px 12px}
+.aview{grid-area:view;height:min(720px,calc(100vh - 120px));background:radial-gradient(circle at 50% 48%, color-mix(in srgb,var(--panel) 60%,#fff 40%) 0, var(--panel) 45%, color-mix(in srgb,var(--bg) 70%,var(--panel)) 100%)}
+[data-theme="dark"] .aview{background:radial-gradient(circle at 50% 48%, #2e2420 0, var(--panel) 50%, #1d1714 100%)}
+.ainfo{grid-area:info;overflow:visible}
+.lib-head{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:4px 8px 10px}
+.alist .fbox{padding:0 4px 8px;border:0}
+.alist .fbox input{border-radius:999px;background:var(--bg);border:1px solid var(--line);height:36px;padding:0 14px;font-family:var(--font)}
+.alist ul{padding:0 2px}
+.agroup{font-family:var(--font);font-weight:600;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:14px 10px 6px;border:0;margin:0}
+.aitem{display:flex;gap:12px;align-items:center;border-radius:16px;padding:7px 10px;border:1px solid transparent;margin:2px 0}
+.aitem i{width:38px;height:38px;border-radius:50%;flex:none;background:radial-gradient(circle at 35% 30%, #fff 0, color-mix(in srgb,var(--c) 45%,#fff) 35%, var(--c) 100%);box-shadow:0 0 0 3px var(--panel),0 0 0 4px var(--line-soft)}
+.aitem b{display:block;font-family:var(--serif);font-weight:600;font-size:17px;line-height:1.15;color:var(--ink-strong)}
+.aitem small{display:block;font-size:11.5px;color:var(--muted);line-height:1.3}
+.aitem:hover{background:var(--chip)}
+.aitem.sel{background:var(--chip);border-color:color-mix(in srgb,var(--ink) 40%,transparent);box-shadow:0 8px 20px -14px rgba(200,90,60,.6)}
+.aitem .heart{margin-left:auto;color:var(--ink);font-size:13px}
 
-.ov h3,.ainfo h3{font-family:var(--serif);font-weight:600;color:var(--ink-strong);font-size:26px;letter-spacing:-.01em}
-.ov .sub{font-family:var(--serif);font-style:italic;color:var(--ink)}
-.badge{border-radius:999px;color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
-.badge:before{background:var(--ok)}
-dt{font-family:var(--font);font-weight:600;letter-spacing:.08em;color:var(--muted);font-size:10.5px}
-dd{color:var(--ink-strong);font-size:13px}
-.chip{border-radius:999px;font-family:var(--font);letter-spacing:.08em;color:var(--ink);background:var(--chip)}
-.ainfo h6,.stepcard .k{font-family:var(--font);font-weight:600;letter-spacing:.14em;color:var(--ink)}
-.ainfo ul{color:var(--ink-strong)}
-.ainfo li::marker{color:var(--ink)}
-.ainfo .lead{font-family:var(--serif);font-size:15.5px;line-height:1.5}
-.stat{border-radius:6px;background:var(--bg)}
-.stat b{font-family:var(--serif);font-weight:600;color:var(--ink);font-size:21px}
-.stepcard h4{font-family:var(--serif);font-weight:600;font-size:18px}
-.progress{height:2px;border-radius:2px}.progress i{background:var(--ink)}
-
-/* lists */
-.agroup{font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink);border-bottom:1px dotted var(--line);margin:0 6px 4px;padding:14px 2px 4px}
-.aitem{border-radius:4px;font-size:13px}
-.aitem em{font-family:var(--mono);font-style:normal;font-size:10.5px;color:var(--muted);min-width:18px}
-.aitem i{width:9px;height:9px}
-.aitem.sel{border-color:var(--line);color:var(--ink-strong);background:var(--chip)}
-.aitem.sel em{color:var(--ink)}
-.alist .fbox input{border-radius:999px;background:var(--panel);padding:0 14px}
-.lesson-btn{border-radius:6px}
-.lesson-btn .n{border-radius:50%;font-family:var(--serif);font-style:italic;border-color:var(--ink);color:var(--ink)}
-.lesson-btn.cur .n{background:var(--ink);color:#fbf7ef}
-.lesson-btn b{font-family:var(--serif);font-weight:600;text-transform:none;letter-spacing:0;font-size:15px;color:var(--ink-strong)}
-
-/* atlas canvas */
-.aview,#diagram{background-image:linear-gradient(var(--grid) 1px,transparent 1px);background-size:100% 26px;background-color:var(--panel)}
-.seg{border-radius:999px;padding:3px;border-color:var(--line)}
-.seg button{border-radius:999px;font-family:var(--font);font-weight:500;text-transform:none;letter-spacing:.01em;font-size:12px;color:var(--ink-strong);padding:5px 11px}
-.seg button[aria-pressed="true"]{background:var(--ink-strong);color:var(--panel)}
-.ctl{border-radius:999px;font-family:var(--font);font-weight:500;text-transform:none;letter-spacing:0;font-size:12px;color:var(--ink-strong)}
-.ctl input{accent-color:var(--ink)!important}
-.hint{font-family:var(--serif);font-style:italic;font-size:12px;border-radius:999px}
-.alabel span{background:var(--panel);color:var(--ink-strong);border:1px solid var(--draw);font-family:var(--serif);font-weight:600;font-size:14px;letter-spacing:0;text-transform:none;padding:4px 12px 4px 4px;border-radius:999px;display:flex;align-items:center;gap:8px;box-shadow:0 6px 18px -10px rgba(60,40,20,.5)}
-.alabel span b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fbf7ef;font-family:var(--font);font-size:11px}
-.alabel span:after{background:var(--draw);width:1px;left:50%}
+.atb{position:absolute;inset:0;display:block;pointer-events:none}
+#aviews{position:absolute;left:16px;top:50%;transform:translateY(-50%);flex-direction:column;border-radius:18px;padding:6px;gap:2px;background:color-mix(in srgb,var(--panel) 85%,transparent);backdrop-filter:blur(6px);border:1px solid var(--line-soft);pointer-events:auto}
+#aviews button{border-radius:12px;font-family:var(--font);text-transform:none;letter-spacing:0;font-size:12px;font-weight:500;padding:8px 12px;color:var(--ink-strong);text-align:left}
+#aviews button[aria-pressed="true"]{background:var(--chip);color:var(--ink)}
+#amodes{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);border-radius:999px;padding:4px;gap:2px;background:color-mix(in srgb,var(--panel) 85%,transparent);backdrop-filter:blur(6px);border:1px solid var(--line-soft);pointer-events:auto}
+#amodes button{border-radius:999px;font-family:var(--font);text-transform:none;letter-spacing:0;font-size:12.5px;font-weight:500;padding:6px 14px;color:var(--ink-strong)}
+#amodes button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.abottom{left:auto;right:16px;bottom:16px;top:auto;flex-direction:column;align-items:flex-end;gap:6px;width:auto}
+.ctl{border-radius:999px;font-family:var(--font);text-transform:none;letter-spacing:0;font-weight:500;font-size:12.5px;color:var(--ink-strong);background:color-mix(in srgb,var(--panel) 88%,transparent);backdrop-filter:blur(6px);border:1px solid var(--line-soft);height:34px}
+.ctl input{accent-color:var(--ink)}
+.ctl.sw input{position:absolute;opacity:0;pointer-events:none}
+.ctl.sw .knob{width:30px;height:18px;border-radius:999px;background:var(--line);position:relative;transition:background .2s}
+.ctl.sw .knob:after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.ctl.sw input:checked + .knob{background:var(--ink)}
+.ctl.sw input:checked + .knob:after{transform:translateX(12px)}
+.note{position:absolute;top:18px;right:18px;z-index:3;width:190px;background:var(--note);color:var(--noteink);border-radius:6px;padding:12px 14px;font-family:var(--serif);font-size:15px;line-height:1.35;transform:rotate(1.5deg);box-shadow:0 10px 24px -16px rgba(100,80,20,.5)}
+.note b{display:block;font-family:var(--font);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-weight:600}
+.alabel span{background:var(--panel);color:var(--ink-strong);border:1px solid var(--line);font-family:var(--serif);font-weight:600;font-size:16px;letter-spacing:0;text-transform:none;padding:4px 14px;border-radius:999px;box-shadow:0 10px 24px -14px rgba(120,60,30,.5)}
+.alabel span b{display:none}
+.alabel span:after{background:var(--ink);width:1px}
 .alabel i{background:var(--panel);border:2px solid var(--ink)}
-.atip{border-radius:999px;font-family:var(--serif);font-style:italic;font-size:13px}
+.atip{border-radius:999px;font-family:var(--serif);font-size:15px;border-color:var(--line)}
+.amsg{font-family:var(--serif);font-size:18px;color:var(--ink-strong)}
 
-/* processes */
-.tabs{border-radius:999px;padding:3px}
-.tabs button{border-radius:999px;font-family:var(--font);font-weight:500;text-transform:none;letter-spacing:0;font-size:12px}
-.tabs button[aria-selected="true"]{background:var(--ink-strong);color:var(--panel)}
-.levels .lbl{font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink)}
-.levels .lbl span:last-child{font-style:normal;font-family:var(--font);font-weight:600}
-.levels button{border-radius:50%;width:26px;height:26px;font-family:var(--serif);font-style:italic;font-size:12px}
-.levels button.pri{background:var(--ink);border-color:var(--ink);color:#fbf7ef}
+/* ---- profile card ---- */
+.ainfo .body{padding:30px 34px}
+.pro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:40px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-strong)}
+.eyebrow i{width:9px;height:9px;border-radius:50%}
+.ainfo h3{font-family:var(--serif);font-weight:500;font-size:52px;line-height:1;margin:14px 0 6px;color:var(--ink-strong);letter-spacing:-.01em}
+.tag{display:block;font-family:var(--serif);font-size:18px;color:var(--lav)}
+.kk{margin:28px 0 10px!important;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-strong)!important}
+dl.keys{border:0;margin:0}
+dl.keys div{display:grid;grid-template-columns:30px 1fr;gap:6px;padding:9px 0;border-bottom:1px solid var(--line-soft)}
+dl.keys dt{font-size:13px;font-weight:500;color:var(--ink-strong);letter-spacing:0;display:flex;gap:10px}
+dl.keys dt span{color:var(--ink)}
+dl.keys div:has(dt:not(:empty) ~ dd){}
+.pro-a dl.keys div{grid-template-columns:150px 1fr}
+.pro-a dl.keys.fnlist div{grid-template-columns:28px 1fr}
+.pro-a dl.keys.fnlist dd{color:var(--ink-strong)}
+.pro-a dl.keys dd{font-family:var(--serif);font-size:16px;color:var(--muted)}
+.ainfo .lead{font-family:var(--serif);font-size:20px;line-height:1.45;color:var(--ink-strong);margin:0 0 20px}
+.callout{background:var(--chip);border-radius:16px;padding:14px 18px;margin-bottom:12px;color:var(--ink-strong);font-size:13.5px}
+.callout b{display:block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:4px}
+.callout.soft{background:color-mix(in srgb,var(--lav) 12%,var(--panel))}
+.callout.soft b{color:var(--lav)}
+.golesson{margin-top:8px;width:auto}
+
+/* ---- processes ---- */
+.toolbar{padding:4px 0 16px}
+.levels .lbl{font-family:var(--font);font-size:11px;letter-spacing:.12em;color:var(--muted)}
+.levels .lbl span:last-child{color:var(--ink-strong)}
+.levels button{border-radius:50%;width:28px;height:28px;font-family:var(--font);border-color:var(--line);color:var(--muted);background:var(--panel)}
+.levels button.pri{background:var(--ink);border-color:var(--ink);color:#fff}
 .levels button.sec{border-color:var(--ink);color:var(--ink)}
+#diagram{background:radial-gradient(circle at 50% 50%, color-mix(in srgb,var(--panel) 60%,#fff 40%), var(--panel) 60%)}
+[data-theme="dark"] #diagram{background:radial-gradient(circle at 50% 50%, #2e2420, var(--panel) 60%)}
+.stage{overflow:hidden}
+.tabs{border-radius:999px;border-color:var(--line-soft);background:color-mix(in srgb,var(--panel) 85%,transparent)}
+.tabs button{border-radius:999px;font-family:var(--font);text-transform:none;letter-spacing:0;font-weight:500;font-size:12.5px;color:var(--ink-strong)}
+.tabs button[aria-selected="true"]{background:var(--ink);color:#fff}
 .ic path,.ic circle,.ic rect,.ic ellipse,.ic polygon{stroke:var(--draw);stroke-width:1.4}
-.node .nm{font-family:var(--serif);font-size:14px;font-weight:600}
-.node .sb{font-family:var(--serif);font-style:italic;font-size:11.5px}
-.edge{stroke:var(--draw);opacity:.35;stroke-dasharray:2 5}
+.plat{fill:url(#hatch);stroke:none;opacity:.8}
+.node .nm{font-family:var(--serif);font-size:15px;font-weight:600}
+.node .sb{font-family:var(--font);font-size:10.5px}
+.edge{stroke:var(--draw);opacity:.3;stroke-dasharray:3 5}
 .edge.done{opacity:.6}
-.meter rect.box{fill:var(--panel);stroke:var(--line);rx:6}
-.seqlane{font-family:var(--serif);font-style:italic;font-size:12px;fill:var(--ink-strong)}
-.seqtxt{font-family:var(--font)}
-th{font-family:var(--font);font-weight:600;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;font-size:10.5px}
-td{color:var(--ink-strong);font-size:12.5px}
+.meter rect.box{fill:var(--panel);stroke:var(--line)}
+.ov h3{font-family:var(--serif);font-weight:500;font-size:34px;line-height:1.05;color:var(--ink-strong)}
+.ov .sub{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--lav)}
+.badge{border-radius:999px}
+dt{font-family:var(--font);letter-spacing:.08em;color:var(--muted)}
+dd{color:var(--ink-strong)}
+.stepcard h4{font-family:var(--serif);font-weight:600;font-size:21px;line-height:1.25}
+.stepcard .k{color:var(--muted)}
+.progress{border-radius:4px;height:3px}
+th{font-family:var(--font);font-size:10.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+td{color:var(--ink-strong)}
+td.info{font-family:var(--serif);font-size:15.5px}
 td.nowrap:nth-child(2),td.nowrap:last-child{font-family:var(--mono);font-size:12px;color:var(--muted)}
-td.info{font-family:var(--serif);font-size:14px}
+tbody tr:hover,tbody tr.cur{background:var(--chip)}
 tbody tr.cur{box-shadow:inset 3px 0 0 var(--ink)}
-.num{font-family:var(--font)}
-.q h5{font-family:var(--serif);font-weight:600;font-size:15px}
-.q button.opt{border-radius:6px;font-family:var(--font);color:var(--ink-strong)}
-.score{font-family:var(--serif);font-style:italic;font-size:14px}
-footer{border-top:1px solid var(--draw);font-family:var(--serif);font-style:italic;font-size:12px}
+.q h5{font-family:var(--serif);font-weight:600;font-size:18px}
+.q button.opt{border-radius:14px;color:var(--ink-strong)}
+.score{color:var(--ink)}
+.lesson-btn{border-radius:16px}
+.lesson-btn .n{border-radius:50%;border-color:var(--ink);color:var(--ink)}
+.lesson-btn.cur .n{background:var(--ink);color:#fff}
+.lesson-btn b{font-family:var(--serif);font-weight:600;font-size:17px;text-transform:none;letter-spacing:0;color:var(--ink-strong)}
+.drawer{border-radius:0 var(--r) var(--r) 0}
+.palette,.modal{border-radius:var(--r);overflow:hidden}
+.palette input{font-family:var(--serif);font-size:20px}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:12px}
 footer a{color:var(--ink)}
-.drawer,.palette,.modal{border-radius:0 8px 8px 0}
-.palette,.modal{border-radius:8px}
-.palette input{font-family:var(--serif);font-size:17px}
-.golesson{font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:0;font-size:15px;font-weight:600;color:var(--ink);border-color:var(--ink)}
-@media (max-width:900px){ header.top{flex-wrap:wrap;gap:14px} .byline{display:none} .theme{margin-left:auto} }
+.quote{text-align:center;padding:34px 0 10px;font-family:var(--serif);font-size:26px;color:var(--ink-strong)}
+.quote span{display:block;color:var(--ink);font-size:20px}
+.quote em{display:block;font-size:17px;color:var(--lav);margin-top:4px}
+@media (max-width:1040px){
+  .atlas{grid-template-columns:1fr;grid-template-areas:"view" "lib" "info"}
+  .alist{height:auto;max-height:340px}
+  .aview{height:70vh;min-height:460px}
+  .pro{grid-template-columns:1fr;gap:20px}
+  .note{display:none}
+}
+@media (max-width:760px){ header.top{flex-wrap:wrap} .byline{display:none} .brand p{display:none} #aviews{top:auto;bottom:70px;transform:none;flex-direction:row;flex-wrap:wrap;left:12px;right:12px} .abottom{display:none} }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <div class="brand">
-      <div class="seal" aria-hidden="true">
-        <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
-          <circle cx="24" cy="24" r="22.5"/><circle cx="24" cy="24" r="19" stroke-dasharray="1.5 2.5"/>
-          <path d="M14 27c-2-7 3-14 10-14 6-1 11 3 11 9 0 4-3 6-6 6.5-1 2.5-3 3.5-5 3h-2c-3 0-6-1.5-8-4.5z"/>
-          <path d="M19 16.5c1 2-1 3.5 0 6M25 14c-1 3 2 4 0 7M30.5 17c-1.5 2.5 1 4-1 6.5M16 24c3 0 5 1.5 8 1s5 1 7 0" stroke-width="1.1"/>
-          <path d="M25 31.5l1 6" />
-        </svg>
-      </div>
-      <div>
-        <h1>Neuro <em>Explorer</em></h1>
-        <p>Atlas ilustrado de neurociencia</p>
-      </div>
-    </div>
+    <div class="brand"><h1>Neuro Explorer<sup>✦</sup></h1><p>Aprendé cómo funciona el cerebro</p></div>
     <nav class="views" role="tablist" aria-label="Secciones">
-      <button role="tab" id="navAtlas" aria-selected="true"><span class="roman">I.</span>Atlas 3D</button>
-      <button role="tab" id="navProc" aria-selected="false"><span class="roman">II.</span>Procesos</button>
+      <button role="tab" id="navAtlas" aria-selected="true"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>Explorar</button>
+      <button role="tab" id="navProc" aria-selected="false"><svg class="i" viewBox="0 0 24 24"><path d="M4 5h6v6H4zM14 13h6v6h-6zM10 8h4a3 3 0 0 1 3 3v2"/></svg>Procesos</button>
     </nav>
-    <div class="byline">Láminas de<b>Mapa Bianchi</b></div>
+    <div class="byline">por <b>Mapa Bianchi</b></div>
     <div class="theme" role="group" aria-label="Tema">
       <button id="lightBtn" aria-label="Modo claro" aria-pressed="true"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
       <button id="darkBtn" aria-label="Modo oscuro" aria-pressed="false"><svg class="i" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
@@ -396,7 +431,7 @@ footer a{color:var(--ink)}
   <section id="viewAtlas" aria-label="Atlas 3D del cerebro">
     <div class="atlas">
       <aside class="panel alist">
-        <div class="ph-head"><h2>Índice</h2></div>
+        <div class="lib-head">Biblioteca del cerebro</div>
         <div class="fbox"><input id="afilter" placeholder="Filtrar: hipocampo, lenguaje…" autocomplete="off" aria-label="Filtrar estructuras"></div>
         <ul id="alist"></ul>
       </aside>
@@ -406,6 +441,7 @@ footer a{color:var(--ink)}
         <div class="amsg" id="amsg">Cargando modelo 3D…</div>
         <div class="alabel" id="alabel"><span></span><i></i></div>
         <div class="atip" id="atip"></div>
+        <aside class="note" aria-label="Consejo"><b>✎ Consejo</b>Arrastrá para girar<br>Rueda o pellizco para zoom<br>Hacé clic en una parte para saber más</aside>
         <div class="atb">
           <div class="seg" role="group" aria-label="Vista de cámara" id="aviews">
             <button data-v="izq" aria-pressed="false">Izquierda</button>
@@ -425,14 +461,12 @@ footer a{color:var(--ink)}
           <label class="ctl"><input type="checkbox" id="hemiL" checked> Hemisferio izq.</label>
           <label class="ctl"><input type="checkbox" id="hemiR" checked> Hemisferio der.</label>
           <label class="ctl">Corteza <input type="range" id="aop" min="0" max="100" value="100" aria-label="Opacidad de la corteza"></label>
-          <label class="ctl"><input type="checkbox" id="arot"> Girar</label>
-          <span class="hint">Arrastrá para rotar · rueda o pellizco para zoom · clic para elegir</span>
+          <label class="ctl sw"><input type="checkbox" id="arot"><span class="knob"></span> Giro automático</label>
         </div>
       </div>
 
       <aside class="panel ainfo">
-        <div class="ph-head"><h2>Ficha</h2></div>
-        <div class="body" id="ainfo" aria-live="polite"></div>
+                <div class="body" id="ainfo" aria-live="polite"></div>
       </aside>
     </div>
   </section>
@@ -505,6 +539,7 @@ footer a{color:var(--ink)}
   </section>
   </div>
 
+  <div class="quote"><span>✿</span>Aprender es un acto de curiosidad.<em>Seguí explorando</em></div>
   <footer>
     <span>Contenido con fines educativos. El modelo 3D es esquemático, los tiempos son aproximados y los diagramas simplifican procesos reales.</span>
     <span>Inspirado en <a href="https://protocol-explorer-alpha.vercel.app/">Protocol Explorer</a> y <a href="https://www.brainfacts.org/3d-brain">BrainFacts 3D Brain</a>.</span>
@@ -1538,32 +1573,38 @@ function renderList(){
   let html = "", last = null;
   REGIONS.filter(r => !q || norm(r.name + " " + r.desc + " " + r.fn.join(" ")).includes(q)).forEach(r => {
     if (r.group !== last){ html += `<li class="agroup">${esc(r.group)}</li>`; last = r.group; }
-    html += `<li><button class="aitem ${r.id === selId ? "sel" : ""}" data-id="${r.id}"><em>${String(REGIONS.indexOf(r)+1).padStart(2,"0")}</em><i style="background:${r.color}"></i>${esc(r.name)}</button></li>`;
+    html += `<li><button class="aitem ${r.id === selId ? "sel" : ""}" data-id="${r.id}"><i style="--c:${r.color}"></i><span><b>${esc(r.name)}</b><small>${esc(r.group.replace("Corteza · ","Corteza "))}</small></span>${r.id === selId ? '<span class="heart">♥</span>' : ""}</button></li>`;
   });
   $("#alist").innerHTML = html || `<li class="empty">Sin resultados.</li>`;
 }
 function renderInfo(){
   const box = $("#ainfo");
+  const GLY = ["◇","✦","⌁","◈","❋","⌖"];
   if (!selId){
-    box.innerHTML = `<span class="chip">Lámina I · Encéfalo humano</span><h3>Explorá el cerebro</h3>
-      <p class="lead">Rotá el modelo y tocá cualquier parte para ver qué hace, qué pasa si se daña y un dato para recordarla.</p>
-      <p style="margin-top:10px">Bajá la opacidad de la corteza o usá la vista medial para ver las estructuras profundas, como el hipocampo o la amígdala.</p>
-      <div class="stats">
-        <div class="stat"><b>~86 mil M</b><span>neuronas</span></div>
-        <div class="stat"><b>~1,4 kg</b><span>peso del encéfalo</span></div>
-        <div class="stat"><b>~2%</b><span>del peso corporal</span></div>
-        <div class="stat"><b>~20%</b><span>de la energía en reposo</span></div>
-      </div>
-      <p style="margin-top:14px;font-size:11px">Modelo esquemático con fines educativos: las formas y proporciones están simplificadas.</p>`;
+    box.innerHTML = `<div class="pro">
+      <div class="pro-a"><span class="eyebrow">♥ Encéfalo humano</span><h3>Cerebro</h3><em class="tag">El órgano que te piensa</em>
+        <p class="kk">Datos clave</p>
+        <dl class="keys">
+          <div><dt><span>◇</span>Neuronas</dt><dd>~86 mil millones</dd></div>
+          <div><dt><span>♙</span>Peso</dt><dd>~1,4 kg</dd></div>
+          <div><dt><span>⌁</span>Del cuerpo</dt><dd>~2% del peso</dd></div>
+          <div><dt><span>❋</span>Energía</dt><dd>~20% en reposo</dd></div>
+        </dl></div>
+      <div class="pro-b"><p class="lead">Girá el modelo y tocá cualquier parte para ver qué hace, qué pasa si se daña y un dato para recordarla. Bajá la opacidad de la corteza o usá la vista medial para ver las estructuras profundas.</p>
+        <div class="callout"><b>Antes de empezar</b>Es un modelo esquemático con fines educativos: las formas y proporciones están simplificadas.</div></div>
+    </div>`;
     return;
   }
   const r = RBY[selId];
-  box.innerHTML = `<span class="chip"><i style="background:${r.color}"></i>Fig. ${REGIONS.indexOf(r)+1} · ${esc(r.group)}</span>
-    <h3>${esc(r.name)}</h3><p class="lead">${esc(r.desc)}</p>
-    <h6>Funciones</h6><ul>${r.fn.map(f => `<li>${esc(f)}</li>`).join("")}</ul>
-    <h6>Si se daña</h6><p>${esc(r.dano)}</p>
-    <h6>Dato para recordar</h6><p>${esc(r.dato)}</p>
-    ${r.lesson ? `<button class="btn golesson" data-lesson="${r.lesson}">Ver en Procesos: ${esc(LESSON_NAMES[r.lesson])} →</button>` : ""}`;
+  box.innerHTML = `<div class="pro">
+    <div class="pro-a"><span class="eyebrow"><i style="background:${r.color}"></i>${esc(r.group)}</span><h3>${esc(r.name)}</h3><em class="tag">${esc(r.fn[0])}</em>
+      <p class="kk">Funciones</p>
+      <dl class="keys fnlist">${r.fn.map((f,k) => `<div><dt><span>${GLY[k % GLY.length]}</span></dt><dd>${esc(f)}</dd></div>`).join("")}</dl></div>
+    <div class="pro-b"><p class="lead">${esc(r.desc)}</p>
+      <div class="callout"><b>Importancia clínica</b>${esc(r.dano)}</div>
+      <div class="callout soft"><b>¿Sabías que…?</b>${esc(r.dato)}</div>
+      ${r.lesson ? `<button class="btn primary golesson" data-lesson="${r.lesson}">Ver lección: ${esc(LESSON_NAMES[r.lesson])} →</button>` : ""}</div>
+  </div>`;
 }
 
 function select(id, opts = {}){
