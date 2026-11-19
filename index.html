@@ -451,8 +451,8 @@ body:not([data-view="proc"]) .proc-only{display:none}
   </div>
 
   <footer>
-    <span>Contenido con fines educativos. El modelo 3D es esquemático, los tiempos son aproximados y los diagramas simplifican procesos reales.</span>
-    <span>Inspirado en <a href="https://protocol-explorer-alpha.vercel.app/">Protocol Explorer</a> y <a href="https://www.brainfacts.org/3d-brain">BrainFacts 3D Brain</a>.</span>
+    <span>Contenido con fines educativos. El modelo 3D combina mallas reales con estructuras esquemáticas, los tiempos son aproximados y los diagramas simplifican procesos reales.</span>
+    <span>Modelo 3D: superficie cortical de la plantilla ICBM 2009 (McConnell Brain Imaging Centre, MNI) vía <a href="https://github.com/niivue/niivue">NiiVue</a>/Surf Ice, y atlas subcortical <a href="https://doi.org/10.1038/sdata.2018.63">CIT168</a> (Pauli et al., 2018). Inspirado en <a href="https://protocol-explorer-alpha.vercel.app/">Protocol Explorer</a> y <a href="https://www.brainfacts.org/3d-brain">BrainFacts 3D Brain</a>.</span>
   </footer>
 </div>
 
@@ -1480,7 +1480,7 @@ renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
 host.appendChild(renderer.domElement);
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 400);
-const TARGET = new THREE.Vector3(0, -1.2, -0.5);
+const TARGET = new THREE.Vector3(0, -1.1, -0.2);
 camera.position.set(24, 9, 15);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.copy(TARGET); controls.enableDamping = true; controls.dampingFactor = 0.08;
@@ -1492,62 +1492,36 @@ const rim = new THREE.DirectionalLight(0xaecbff, 0.7); rim.position.set(-14, -6,
 const fill = new THREE.DirectionalLight(0xffffff, 0.45); fill.position.set(-16, 6, 10); scene.add(fill);
 const brain = new THREE.Group(); scene.add(brain);
 
-/* ---------- cortex hemispheres ---------- */
-function buildHemisphere(side){
-  const base = new THREE.SphereGeometry(1, 230, 170);
-  base.deleteAttribute("uv"); base.deleteAttribute("normal");
-  const geo = mergeVertices(base);
-  const pos = geo.attributes.position, n = pos.count;
-  const lobe = new Uint8Array(n), area = new Uint8Array(n), sul = new Float32Array(n), lat = new Uint8Array(n);
+/* ---------- real meshes (ICBM152 cortex + CIT168 subcortex) ---------- */
+const MS = 0.09;
+const mni = (x, y, z) => [-x*MS, (z - 10)*MS, (y + 17)*MS];
+msg.textContent = "Cargando modelo 3D…";
+let BD;
+try { BD = await (await fetch("data/brain.json")).json(); }
+catch(e){ msg.textContent = "No se pudo cargar el modelo del cerebro (data/brain.json)."; throw e; }
+const unb64 = (s, T) => { const bin = atob(s), u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return new T(u.buffer); };
+function meshGeo(vq, f, mirror){
+  const q = unb64(vq, Int16Array), idx = unb64(f, Uint16Array), n = q.length / 3;
+  const pos = new Float32Array(q.length);
   for (let i = 0; i < n; i++){
-    const sx = pos.getX(i), sy = pos.getY(i), sz = pos.getZ(i);
-    const xl = sx * side;
-    const rx = xl > 0 ? 5.4 : 0.62;
-    let X = xl * rx;
-    X *= 1 - 0.2*smooth(0.25,1,sz) - 0.13*smooth(-0.3,-1,sz);
-    let Y = sy * 4.4;
-    if (sy < 0) Y *= 0.95 - 0.42*smooth(0.35,0.75,sz) - 0.5*smooth(-0.35,-0.72,sz); else Y *= 0.96;
-    const Z = sz * 7.6;
-
-    // lobes
-    const ysyl = -0.12 - 0.35*sz;
-    const zc = 0.05 - 0.22*sy + 0.015*Math.sin(sy*22);
-    let L;
-    if (sz < -0.62 + 0.12*sy) L = 4;
-    else if (sy < ysyl && sz < 0.62) L = 3;
-    else if (sz > zc) L = 1;
-    else L = 2;
-    let A = 0;
-    if (L === 1 && sz - zc < 0.085 && sy > ysyl + 0.05) A = 11;
-    else if (L === 2 && zc - sz < 0.085 && sy > ysyl + 0.03) A = 12;
-    else if (side > 0 && L === 1 && xl > 0.35 && sy > ysyl && sy < ysyl + 0.24 && sz > zc + 0.1 && sz < zc + 0.4) A = 13;
-    else if (side > 0 && L === 3 && xl > 0.35 && sy > ysyl - 0.22 && sz > -0.5 && sz < -0.12) A = 14;
-    else if (L === 4 && (sz < -0.9 || xl < -0.3)) A = 15;
-    else if (L === 1 && sz > 0.52) A = 16;
-    lobe[i] = L; area[i] = A; lat[i] = xl > 0.2 ? 1 : 0;
-
-    // grooves: sylvian fissure + central sulcus + gyri
-    const latm = smooth(0.0, 0.4, xl);
-    let groove = 0;
-    const dS = sy - ysyl;
-    if (sz > -0.55 && sz < 0.6) groove += 0.8*Math.exp(-dS*dS/0.0022)*latm*smooth(0.6,0.4,sz)*smooth(-0.55,-0.35,sz);
-    const dC = sz - zc;
-    if (sy > ysyl + 0.04) groove += 0.5*Math.exp(-dC*dC/0.0008)*smooth(-0.6,-0.1,xl);
-    const wx = side*X + side*0.78;
-    const nn = noise(wx*0.78, Y*0.78, Z*0.78) + 0.45*noise(wx*1.6+11.3, Y*1.6+3.1, Z*1.6+7.7);
-    const s = Math.exp(-nn*nn/0.0055);
-    const crown = 0.05*noise(wx*2.1+5, Y*2.1+1, Z*2.1+9);
-    const depth = 0.4*s + 0.11*Math.exp(-nn*nn/0.05) + groove - crown;
-    sul[i] = clamp(depth/0.5, 0, 1);
-    // ellipsoid normal (local)
-    let nx = X/(rx*rx), ny = Y/19.4, nz = Z/57.8; const nl = Math.hypot(nx,ny,nz) || 1;
-    nx/=nl; ny/=nl; nz/=nl;
-    const Xd = X - nx*depth, Yd = Y - ny*depth, Zd = Z - nz*depth;
-    pos.setXYZ(i, side*Xd + side*0.78, Yd + 1, Zd);
+    const p = mni(q[i*3]/100 * (mirror ? -1 : 1), q[i*3+1]/100, q[i*3+2]/100);
+    pos[i*3] = p[0]; pos[i*3+1] = p[1]; pos[i*3+2] = p[2];
   }
-  geo.computeVertexNormals();
-  geo.setAttribute("color", new THREE.BufferAttribute(new Float32Array(n*3), 3));
-  const mat = new THREE.MeshStandardMaterial({vertexColors:true, roughness:0.72, metalness:0, transparent:false});
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+  let I = idx;
+  if (mirror){ I = new Uint16Array(idx); for (let i = 0; i < I.length; i += 3){ const t = I[i+1]; I[i+1] = I[i+2]; I[i+2] = t; } }
+  g.setIndex(new THREE.BufferAttribute(I, 1));
+  g.computeVertexNormals();
+  return g;
+}
+function buildHemisphere(side){
+  const C = BD.cortex, geo = meshGeo(C.v, C.f, side < 0);
+  const lobe = unb64(C.lobe, Uint8Array), area0 = unb64(C.area, Uint8Array), ao = unb64(C.ao, Uint8Array), lat = unb64(C.lat, Uint8Array);
+  const area = side > 0 ? area0 : area0.map(a => (a === 13 || a === 14) ? 0 : a);
+  const sul = Float32Array.from(ao, a => a / 255);
+  geo.setAttribute("color", new THREE.BufferAttribute(new Float32Array(C.n*3), 3));
+  const mat = new THREE.MeshStandardMaterial({vertexColors:true, roughness:0.68, metalness:0});
   const mesh = new THREE.Mesh(geo, mat);
   mesh.renderOrder = 2;
   mesh.userData = {cortex:true, side, lobe, area, sul, lat};
@@ -1569,46 +1543,45 @@ function addMesh(geo, id, pos, scale){
   brain.add(m); picks.push(m); return m;
 }
 const sphere = (s = 48) => new THREE.SphereGeometry(1, s, Math.round(s*0.66));
-function tube(points, r, seg = 80){ return new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points.map(p => new THREE.Vector3(...p))), seg, r, 20, false); }
+const mm = v => v * MS;
+function tube(points, r, seg = 80){ return new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points.map(p => new THREE.Vector3(...mni(...p)))), seg, r, 20, false); }
 function cyl(a, b, ra, rb, id){
-  const A = new THREE.Vector3(...a), B = new THREE.Vector3(...b), d = B.clone().sub(A);
+  const A = new THREE.Vector3(...mni(...a)), B = new THREE.Vector3(...mni(...b)), d = B.clone().sub(A);
   const g = new THREE.CylinderGeometry(rb, ra, d.length(), 40, 1, false);
   const m = addMesh(g, id);
   m.position.copy(A.clone().add(B).multiplyScalar(0.5));
   m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), d.normalize());
   return m;
 }
+addMesh(meshGeo(BD.sub.ganglios.v, BD.sub.ganglios.f, false), "ganglios");
+addMesh(meshGeo(BD.sub.hipotalamo.v, BD.sub.hipotalamo.f, false), "hipotalamo");
 [-1, 1].forEach(s => {
-  addMesh(sphere(), "talamo", [s*0.85, 0.3, -0.6], [0.8, 0.75, 1.4]);
-  addMesh(tube([[s*2.55,-1.85,1.5],[s*2.8,-1.75,0.3],[s*2.7,-1.25,-1.2],[s*2.25,-0.2,-2.4],[s*1.5,0.6,-2.7]], 0.4), "hipocampo");
-  addMesh(sphere(), "amigdala", [s*2.45, -1.85, 2.3], [0.58, 0.55, 0.64]);
-  addMesh(sphere(), "ganglios", [s*2.35, 0.25, 0.7], [0.62, 1.05, 1.45]);
-  addMesh(tube([[s*1.35,0.9,2.6],[s*1.45,1.75,1.2],[s*1.4,1.7,-0.4],[s*1.55,1.0,-1.8],[s*2.1,-0.1,-2.0],[s*2.5,-0.9,-1.3]], 0.36), "ganglios");
-  addMesh(sphere(), "ganglios", [s*1.35, 0.9, 2.6], [0.55, 0.6, 0.6]);
+  addMesh(sphere(), "talamo", mni(s*11, -18, 7), [mm(7), mm(9), mm(15)]);
+  addMesh(tube([[s*24,-6,-22],[s*29,-18,-16],[s*30,-30,-9],[s*25,-39,-1],[s*18,-42,7]], mm(4.2)), "hipocampo");
+  addMesh(sphere(), "amigdala", mni(s*22, -4, -20), [mm(6.5), mm(6), mm(7.5)]);
 });
-addMesh(sphere(), "hipotalamo", [0, -0.85, 0.75], [0.85, 0.55, 0.8]);
-addMesh(sphere(32), "hipofisis", [0, -2.35, 1.35], [0.42, 0.36, 0.42]);
-cyl([0,-2.1,1.25], [0,-1.2,0.9], 0.13, 0.16, "hipofisis");
-{ const cc = addMesh(tube([[0,0.7,3.1],[0,1.75,2.4],[0,2.25,0.8],[0,2.3,-0.9],[0,2.0,-2.4],[0,1.25,-3.3],[0,0.55,-3.0]], 0.3, 100), "calloso"); cc.scale.set(5.2, 1, 1); }
+addMesh(sphere(32), "hipofisis", mni(0, 4, -36), [mm(5), mm(4), mm(4.5)]);
+cyl([0,3,-32], [0,0,-14], mm(1.2), mm(1.4), "hipofisis");
+{ const cc = addMesh(tube([[0,28,0],[0,33,11],[0,22,22],[0,2,25],[0,-18,23],[0,-34,16],[0,-38,6]], mm(3), 100), "calloso"); cc.scale.set(3.6, 1, 1); }
 
 /* ---------- brainstem & cerebellum ---------- */
-cyl([0,-2.7,-1.35], [0,-1.0,-1.0], 1.0, 1.05, "mesencefalo");
-addMesh(sphere(), "protuberancia", [0, -3.55, -0.85], [1.45, 1.15, 1.3]);
-cyl([0,-6.7,-2.0], [0,-4.4,-1.5], 0.62, 0.9, "bulbo");
-cyl([0,-11.5,-2.4], [0,-6.7,-2.0], 0.5, 0.62, "medula");
+cyl([0,-26,-22], [0,-21,-2], mm(9), mm(9.5), "mesencefalo");
+addMesh(sphere(), "protuberancia", mni(0, -25, -32), [mm(14), mm(11), mm(12)]);
+cyl([0,-40,-62], [0,-33,-42], mm(6), mm(8), "bulbo");
+cyl([0,-45,-108], [0,-40,-62], mm(5), mm(6), "medula");
 function cerebellumGeo(sc){
   const base = new THREE.SphereGeometry(1, 120, 80); base.deleteAttribute("uv"); base.deleteAttribute("normal");
   const g = mergeVertices(base), p = g.attributes.position;
   for (let i = 0; i < p.count; i++){
     const x = p.getX(i), y = p.getY(i), z = p.getZ(i);
-    const f = Math.sin(y*24 + 0.8*Math.sin(z*3) + 0.5*Math.sin(x*4));
-    const d = 1 - 0.05*Math.exp(-f*f/0.06);
+    const f = Math.sin(y*26 + 0.8*Math.sin(z*3) + 0.5*Math.sin(x*4));
+    const d = 1 - 0.045*Math.exp(-f*f/0.06);
     p.setXYZ(i, x*sc[0]*d, y*sc[1]*d, z*sc[2]*d);
   }
   g.computeVertexNormals(); return g;
 }
-[-1, 1].forEach(s => addMesh(cerebellumGeo([2.45, 1.6, 2.05]), "cerebelo", [s*1.95, -3.55, -5.2]));
-addMesh(cerebellumGeo([0.9, 1.5, 1.9]), "cerebelo", [0, -3.5, -5.4]);
+[-1, 1].forEach(s => addMesh(cerebellumGeo([mm(24), mm(17), mm(22)]), "cerebelo", mni(s*24, -62, -34)));
+addMesh(cerebellumGeo([mm(9), mm(16), mm(20)]), "cerebelo", mni(0, -60, -30));
 
 /* ================= state ================= */
 let mode = "natural", selId = null, opacity = 1, autoOp = false, medialHid = false, hoverId = null;
@@ -1660,11 +1633,8 @@ function anchorFor(id){
     const box = new THREE.Box3();
     picks.filter(m => m.userData.id === id).forEach(m => box.expandByObject(m));
     const c = box.getCenter(new THREE.Vector3());
-    if (id === "hipocampo" || id === "amigdala" || id === "ganglios" || id === "talamo") c.x = camera.position.x < 0 ? -Math.abs(c.x || 2) : Math.abs(c.x || 2);
-    if (id === "hipocampo") c.set(Math.sign(camera.position.x||-1)*2.8, -1.6, 0.2);
-    if (id === "ganglios") c.set(Math.sign(camera.position.x||-1)*2.35, 0.25, 0.7);
-    if (id === "talamo") c.set(Math.sign(camera.position.x||-1)*0.85, 0.3, -0.6);
-    if (id === "amigdala") c.set(Math.sign(camera.position.x||-1)*2.45, -1.85, 2.3);
+    const PAIR = {hipocampo:[-29,-20,-15], ganglios:[-24,4,2], talamo:[-11,-18,9], amigdala:[-22,-4,-20]};
+    if (PAIR[id]){ const p = mni(...PAIR[id]); c.set(Math.abs(p[0]) * (camera.position.x < 0 ? -1 : 1), p[1], p[2]); }
     return c;
   }
   let side = r.left ? 1 : (camera.position.x < 0 ? -1 : 1);
