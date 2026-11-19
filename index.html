@@ -6,7 +6,7 @@
 <title>Neuro Explorer · Aprendé cómo funciona el cerebro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#f4f7fd; --panel:#ffffff; --ink:#1238a8; --ink-strong:#0b2470; --line:#c9d4ef; --line-soft:#e3e9f7;
@@ -245,39 +245,158 @@ footer a{color:var(--ink)}
   .aview{height:72vh;min-height:480px}
   .alist{max-height:300px}
 }
+
+/* ================= Cuaderno de anatomía ================= */
+:root{
+  --bg:#f3ecdf; --panel:#fbf7ef; --ink:#b5402a; --ink-strong:#2f241b; --line:#d6c7ae; --line-soft:#e7dcc8;
+  --muted:#7a6a58; --grid:rgba(120,92,60,.10); --hatch:#ddcfb6; --chip:#efe4d1; --ok:#5f7f3a; --bad:#b5402a;
+  --draw:#5a4636; --accent2:#c98a1b;
+  --font:"IBM Plex Sans", system-ui, sans-serif; --serif:"Fraunces", Georgia, serif; --mono:"IBM Plex Mono", ui-monospace, monospace;
+}
+[data-theme="dark"]{
+  --bg:#1a1511; --panel:#231c16; --ink:#e3795f; --ink-strong:#f1e6d6; --line:#3f3329; --line-soft:#30271f;
+  --muted:#a8977f; --grid:rgba(241,230,214,.06); --hatch:#3a2f25; --chip:#2e251d; --ok:#a9c27a; --bad:#ef8a72; --draw:#d9c6ad;
+}
+body{background:var(--bg) radial-gradient(rgba(120,92,60,.05) 1px, transparent 1.2px) 0 0/4px 4px;font-size:14px;line-height:1.6;color:var(--ink-strong)}
+header.top{border-bottom:0;padding-bottom:16px;position:relative;gap:28px}
+header.top:after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;border-top:1px solid var(--draw);border-bottom:1px solid var(--draw);opacity:.55}
+.brand{margin-right:0}
+.seal{color:var(--ink);display:grid;place-items:center}
+.brand h1{font-family:var(--serif);font-weight:600;font-size:32px;letter-spacing:-.01em;color:var(--ink-strong);text-transform:none}
+.brand h1 em{color:var(--ink);font-weight:400}
+.brand p{font-family:var(--serif);font-style:italic;letter-spacing:.01em;text-transform:none;font-size:14px;margin-top:4px}
+.byline{margin-left:auto;text-transform:none;letter-spacing:.02em;font-style:italic;font-family:var(--serif);font-size:12px}
+.byline b{font-style:normal;font-family:var(--font);font-weight:600}
+.views{margin:0;border:0;background:none;padding:0;gap:22px}
+.views button{background:none!important;color:var(--muted)!important;font-family:var(--serif);font-size:18px;letter-spacing:0;text-transform:none;font-weight:400;padding:4px 0;border-bottom:2px solid transparent;border-radius:0}
+.views button .roman{font-style:italic;color:var(--ink);margin-right:6px;font-size:15px}
+.views button[aria-selected="true"]{color:var(--ink-strong)!important;border-bottom-color:var(--ink);font-weight:600}
+.theme{border-color:var(--line);border-radius:999px;overflow:hidden}
+.theme button{background:var(--panel)}
+.theme button[aria-pressed="true"]{background:var(--ink-strong);color:var(--panel)}
+
+.btn{border-radius:999px;font-family:var(--font);font-weight:600;letter-spacing:.04em;font-size:12px;color:var(--ink-strong);border-color:var(--line)}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:#fbf7ef}
+.btn.icon{border-radius:50%}
+.speed{border-radius:999px;font-family:var(--font);color:var(--ink-strong)}
+.search{border-radius:999px;font-family:var(--font)}
+kbd{font-family:var(--mono);border-radius:4px}
+
+.panel{border-color:var(--line);border-radius:6px;box-shadow:0 1px 0 var(--line-soft),0 10px 30px -22px rgba(60,40,20,.35)}
+.panel h2{font-family:var(--serif);font-style:italic;font-weight:600;text-transform:none;letter-spacing:0;font-size:20px;color:var(--ink-strong)}
+.ph-head{border-bottom:1px solid var(--line);position:relative}
+.ph-head:after{content:"";position:absolute;left:16px;right:16px;bottom:2px;border-bottom:1px solid var(--line-soft)}
+
+.ov h3,.ainfo h3{font-family:var(--serif);font-weight:600;color:var(--ink-strong);font-size:26px;letter-spacing:-.01em}
+.ov .sub{font-family:var(--serif);font-style:italic;color:var(--ink)}
+.badge{border-radius:999px;color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
+.badge:before{background:var(--ok)}
+dt{font-family:var(--font);font-weight:600;letter-spacing:.08em;color:var(--muted);font-size:10.5px}
+dd{color:var(--ink-strong);font-size:13px}
+.chip{border-radius:999px;font-family:var(--font);letter-spacing:.08em;color:var(--ink);background:var(--chip)}
+.ainfo h6,.stepcard .k{font-family:var(--font);font-weight:600;letter-spacing:.14em;color:var(--ink)}
+.ainfo ul{color:var(--ink-strong)}
+.ainfo li::marker{color:var(--ink)}
+.ainfo .lead{font-family:var(--serif);font-size:15.5px;line-height:1.5}
+.stat{border-radius:6px;background:var(--bg)}
+.stat b{font-family:var(--serif);font-weight:600;color:var(--ink);font-size:21px}
+.stepcard h4{font-family:var(--serif);font-weight:600;font-size:18px}
+.progress{height:2px;border-radius:2px}.progress i{background:var(--ink)}
+
+/* lists */
+.agroup{font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink);border-bottom:1px dotted var(--line);margin:0 6px 4px;padding:14px 2px 4px}
+.aitem{border-radius:4px;font-size:13px}
+.aitem em{font-family:var(--mono);font-style:normal;font-size:10.5px;color:var(--muted);min-width:18px}
+.aitem i{width:9px;height:9px}
+.aitem.sel{border-color:var(--line);color:var(--ink-strong);background:var(--chip)}
+.aitem.sel em{color:var(--ink)}
+.alist .fbox input{border-radius:999px;background:var(--panel);padding:0 14px}
+.lesson-btn{border-radius:6px}
+.lesson-btn .n{border-radius:50%;font-family:var(--serif);font-style:italic;border-color:var(--ink);color:var(--ink)}
+.lesson-btn.cur .n{background:var(--ink);color:#fbf7ef}
+.lesson-btn b{font-family:var(--serif);font-weight:600;text-transform:none;letter-spacing:0;font-size:15px;color:var(--ink-strong)}
+
+/* atlas canvas */
+.aview,#diagram{background-image:linear-gradient(var(--grid) 1px,transparent 1px);background-size:100% 26px;background-color:var(--panel)}
+.seg{border-radius:999px;padding:3px;border-color:var(--line)}
+.seg button{border-radius:999px;font-family:var(--font);font-weight:500;text-transform:none;letter-spacing:.01em;font-size:12px;color:var(--ink-strong);padding:5px 11px}
+.seg button[aria-pressed="true"]{background:var(--ink-strong);color:var(--panel)}
+.ctl{border-radius:999px;font-family:var(--font);font-weight:500;text-transform:none;letter-spacing:0;font-size:12px;color:var(--ink-strong)}
+.ctl input{accent-color:var(--ink)!important}
+.hint{font-family:var(--serif);font-style:italic;font-size:12px;border-radius:999px}
+.alabel span{background:var(--panel);color:var(--ink-strong);border:1px solid var(--draw);font-family:var(--serif);font-weight:600;font-size:14px;letter-spacing:0;text-transform:none;padding:4px 12px 4px 4px;border-radius:999px;display:flex;align-items:center;gap:8px;box-shadow:0 6px 18px -10px rgba(60,40,20,.5)}
+.alabel span b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fbf7ef;font-family:var(--font);font-size:11px}
+.alabel span:after{background:var(--draw);width:1px;left:50%}
+.alabel i{background:var(--panel);border:2px solid var(--ink)}
+.atip{border-radius:999px;font-family:var(--serif);font-style:italic;font-size:13px}
+
+/* processes */
+.tabs{border-radius:999px;padding:3px}
+.tabs button{border-radius:999px;font-family:var(--font);font-weight:500;text-transform:none;letter-spacing:0;font-size:12px}
+.tabs button[aria-selected="true"]{background:var(--ink-strong);color:var(--panel)}
+.levels .lbl{font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink)}
+.levels .lbl span:last-child{font-style:normal;font-family:var(--font);font-weight:600}
+.levels button{border-radius:50%;width:26px;height:26px;font-family:var(--serif);font-style:italic;font-size:12px}
+.levels button.pri{background:var(--ink);border-color:var(--ink);color:#fbf7ef}
+.levels button.sec{border-color:var(--ink);color:var(--ink)}
+.ic path,.ic circle,.ic rect,.ic ellipse,.ic polygon{stroke:var(--draw);stroke-width:1.4}
+.node .nm{font-family:var(--serif);font-size:14px;font-weight:600}
+.node .sb{font-family:var(--serif);font-style:italic;font-size:11.5px}
+.edge{stroke:var(--draw);opacity:.35;stroke-dasharray:2 5}
+.edge.done{opacity:.6}
+.meter rect.box{fill:var(--panel);stroke:var(--line);rx:6}
+.seqlane{font-family:var(--serif);font-style:italic;font-size:12px;fill:var(--ink-strong)}
+.seqtxt{font-family:var(--font)}
+th{font-family:var(--font);font-weight:600;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;font-size:10.5px}
+td{color:var(--ink-strong);font-size:12.5px}
+td.nowrap:nth-child(2),td.nowrap:last-child{font-family:var(--mono);font-size:12px;color:var(--muted)}
+td.info{font-family:var(--serif);font-size:14px}
+tbody tr.cur{box-shadow:inset 3px 0 0 var(--ink)}
+.num{font-family:var(--font)}
+.q h5{font-family:var(--serif);font-weight:600;font-size:15px}
+.q button.opt{border-radius:6px;font-family:var(--font);color:var(--ink-strong)}
+.score{font-family:var(--serif);font-style:italic;font-size:14px}
+footer{border-top:1px solid var(--draw);font-family:var(--serif);font-style:italic;font-size:12px}
+footer a{color:var(--ink)}
+.drawer,.palette,.modal{border-radius:0 8px 8px 0}
+.palette,.modal{border-radius:8px}
+.palette input{font-family:var(--serif);font-size:17px}
+.golesson{font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:0;font-size:15px;font-weight:600;color:var(--ink);border-color:var(--ink)}
+@media (max-width:900px){ header.top{flex-wrap:wrap;gap:14px} .byline{display:none} .theme{margin-left:auto} }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <button class="btn" id="openDrawer" aria-label="Abrir lista de lecciones">
-      <svg class="i" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>Lecciones
-    </button>
     <div class="brand">
-      <div class="mark" aria-hidden="true">
-        <svg width="34" height="34" viewBox="0 0 40 40" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"><circle cx="20" cy="20" r="6" fill="var(--ink)"/><path d="M14 16 L5 8 M9 12 L4 14 M18 14 L16 3 M22 14 L27 4 M26 18 L36 14 M25 24 L35 33 M16 25 L8 35 M20 26 V37"/></svg>
+      <div class="seal" aria-hidden="true">
+        <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <circle cx="24" cy="24" r="22.5"/><circle cx="24" cy="24" r="19" stroke-dasharray="1.5 2.5"/>
+          <path d="M14 27c-2-7 3-14 10-14 6-1 11 3 11 9 0 4-3 6-6 6.5-1 2.5-3 3.5-5 3h-2c-3 0-6-1.5-8-4.5z"/>
+          <path d="M19 16.5c1 2-1 3.5 0 6M25 14c-1 3 2 4 0 7M30.5 17c-1.5 2.5 1 4-1 6.5M16 24c3 0 5 1.5 8 1s5 1 7 0" stroke-width="1.1"/>
+          <path d="M25 31.5l1 6" />
+        </svg>
       </div>
       <div>
-        <h1>NEURO <em>EXPLORER</em></h1>
-        <p>Aprendé cómo funciona el cerebro</p>
+        <h1>Neuro <em>Explorer</em></h1>
+        <p>Atlas ilustrado de neurociencia</p>
       </div>
     </div>
-    <div class="byline">Diseñado por<b>Mapa Bianchi</b></div>
+    <nav class="views" role="tablist" aria-label="Secciones">
+      <button role="tab" id="navAtlas" aria-selected="true"><span class="roman">I.</span>Atlas 3D</button>
+      <button role="tab" id="navProc" aria-selected="false"><span class="roman">II.</span>Procesos</button>
+    </nav>
+    <div class="byline">Láminas de<b>Mapa Bianchi</b></div>
     <div class="theme" role="group" aria-label="Tema">
       <button id="lightBtn" aria-label="Modo claro" aria-pressed="true"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
       <button id="darkBtn" aria-label="Modo oscuro" aria-pressed="false"><svg class="i" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
     </div>
   </header>
 
-  <nav class="views" role="tablist" aria-label="Secciones">
-    <button role="tab" id="navAtlas" aria-selected="true"><svg class="i" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 3c3 2.5 4.5 5.5 4.5 9M3 12h18M12 3c-3 2.5-4.5 5.5-4.5 9s1.5 6.5 4.5 9"/></svg>Atlas 3D</button>
-    <button role="tab" id="navProc" aria-selected="false"><svg class="i" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M7.3 11l9.4-4M7.3 13l9.4 4"/></svg>Procesos</button>
-  </nav>
-
   <section id="viewAtlas" aria-label="Atlas 3D del cerebro">
     <div class="atlas">
       <aside class="panel alist">
-        <div class="ph-head"><h2>Estructuras</h2></div>
+        <div class="ph-head"><h2>Índice</h2></div>
         <div class="fbox"><input id="afilter" placeholder="Filtrar: hipocampo, lenguaje…" autocomplete="off" aria-label="Filtrar estructuras"></div>
         <ul id="alist"></ul>
       </aside>
@@ -312,7 +431,7 @@ footer a{color:var(--ink)}
       </div>
 
       <aside class="panel ainfo">
-        <div class="ph-head"><h2>Detalle</h2></div>
+        <div class="ph-head"><h2>Ficha</h2></div>
         <div class="body" id="ainfo" aria-live="polite"></div>
       </aside>
     </div>
@@ -320,6 +439,9 @@ footer a{color:var(--ink)}
 
   <div id="viewProc" hidden>
   <div class="toolbar">
+    <button class="btn" id="openDrawer" aria-label="Abrir lista de lecciones">
+      <svg class="i" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>Lecciones
+    </button>
     <button class="search" id="openSearch">
       <svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
       <span class="ph">Buscar lecciones</span><kbd>Ctrl K</kbd>
@@ -414,7 +536,7 @@ footer a{color:var(--ink)}
 
 <script>
 const LEVELS = ["Molecular","Celular","Sináptico","Circuito","Región","Sistema","Conducta"];
-const C = {blue:"#2f6bff", amber:"#f0a500", violet:"#8b5cf6", green:"#16a34a", teal:"#0ea5a4", red:"#e11d48", gray:"#64748b"};
+const C = {blue:"#3f6e8c", amber:"#c98a1b", violet:"#7d5a94", green:"#6b7f3a", teal:"#3e8a7e", red:"#c2412d", gray:"#8a7c6c"};
 
 const LESSONS = [
 {
@@ -1056,92 +1178,92 @@ import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js';
 /* ================= data ================= */
 const G1 = "Corteza · lóbulos", G2 = "Corteza · áreas funcionales", G3 = "Estructuras profundas", G4 = "Tronco encefálico y cerebelo";
 const REGIONS = [
-  {id:"frontal",code:1,kind:"cortex",group:G1,name:"Lóbulo frontal",color:"#5b8cff",view:"izq",
+  {id:"frontal",code:1,kind:"cortex",group:G1,name:"Lóbulo frontal",color:"#4f7a9a",view:"izq",
    desc:"Es el lóbulo más grande. Ocupa la parte anterior de cada hemisferio, por delante del surco central.",
    fn:["Planificación, toma de decisiones y control de impulsos","Movimiento voluntario (corteza motora)","Producción del lenguaje (área de Broca, en el hemisferio izquierdo)","Regulación emocional y conducta social"],
    dano:"Cambios de personalidad, impulsividad, apatía o dificultad para planificar. El caso clásico es Phineas Gage (1848): una barra de hierro le atravesó el lóbulo frontal, sobrevivió y su conducta cambió.",
    dato:"Es una de las últimas regiones en madurar: la corteza prefrontal termina de desarrollarse cerca de los 25 años."},
-  {id:"parietal",code:2,kind:"cortex",group:G1,name:"Lóbulo parietal",color:"#f2b84b",view:"izq",
+  {id:"parietal",code:2,kind:"cortex",group:G1,name:"Lóbulo parietal",color:"#d19a3a",view:"izq",
    desc:"Está arriba y atrás, entre el surco central y el lóbulo occipital.",
    fn:["Tacto, temperatura, dolor y posición del cuerpo","Integración espacial: dónde están las cosas respecto de vos","Atención dirigida","Cálculo y parte de la lectura"],
    dano:"Heminegligencia: tras una lesión parietal derecha, la persona puede ignorar todo lo que está a su izquierda, incluso la mitad de su plato o de su cuerpo.",
    dato:"En su franja anterior está el homúnculo sensorial de Penfield: un mapa del cuerpo donde manos y labios ocupan muchísimo espacio."},
-  {id:"temporal",code:3,kind:"cortex",group:G1,name:"Lóbulo temporal",color:"#3fbf8f",view:"izq",lesson:"memoria",
+  {id:"temporal",code:3,kind:"cortex",group:G1,name:"Lóbulo temporal",color:"#7d9a4a",view:"izq",lesson:"memoria",
    desc:"Está a los costados, debajo de la cisura de Silvio, a la altura de las orejas.",
    fn:["Audición (corteza auditiva primaria)","Comprensión del lenguaje (área de Wernicke, izquierda)","Memoria: en su cara interna están el hipocampo y la amígdala","Reconocimiento de objetos y rostros"],
    dano:"Problemas de memoria, afasia de comprensión o prosopagnosia (no reconocer caras). Es un origen frecuente de epilepsia.",
    dato:"Wilder Penfield estimulaba el lóbulo temporal durante cirugías y algunos pacientes revivían recuerdos o escuchaban música con mucha nitidez."},
-  {id:"occipital",code:4,kind:"cortex",group:G1,name:"Lóbulo occipital",color:"#c77dff",view:"post",lesson:"vision",
+  {id:"occipital",code:4,kind:"cortex",group:G1,name:"Lóbulo occipital",color:"#9a6f9e",view:"post",lesson:"vision",
    desc:"Es la parte posterior del cerebro, sobre el cerebelo. Está dedicado casi por completo a la visión.",
    fn:["Procesamiento visual básico: bordes, orientación, contraste","Color y movimiento (áreas V4 y V5)","Envía información a las vías ventral (qué) y dorsal (dónde)"],
    dano:"Ceguera cortical en una parte del campo visual, aunque los ojos estén sanos, o agnosias visuales.",
    dato:"Lo que ves a tu izquierda se procesa en el occipital derecho, y viceversa."},
-  {id:"prefrontal",code:16,kind:"cortex",group:G2,name:"Corteza prefrontal",color:"#91a7ff",view:"front",lesson:"memoria",
+  {id:"prefrontal",code:16,kind:"cortex",group:G2,name:"Corteza prefrontal",color:"#86a3b8",view:"front",lesson:"memoria",
    desc:"La parte más anterior del lóbulo frontal. Es la región que más creció en la evolución humana.",
    fn:["Funciones ejecutivas: memoria de trabajo, inhibición y flexibilidad","Planificación y metas a largo plazo","Regulación de las emociones junto con la amígdala","Valoración de recompensas y toma de decisiones"],
    dano:"Impulsividad, dificultad para sostener metas, conducta social inapropiada o apatía.",
    dato:"Bajo estrés intenso, la prefrontal pierde control y la amígdala gana peso: por eso cuesta pensar con claridad cuando tenés miedo."},
-  {id:"motora",code:11,kind:"cortex",group:G2,name:"Corteza motora primaria",color:"#ff6b6b",view:"sup",
+  {id:"motora",code:11,kind:"cortex",group:G2,name:"Corteza motora primaria",color:"#c2412d",view:"sup",
    desc:"Franja del lóbulo frontal justo delante del surco central (giro precentral).",
    fn:["Ejecuta los movimientos voluntarios","Cada hemisferio controla el lado opuesto del cuerpo","Organización somatotópica: un mapa del cuerpo (homúnculo motor)"],
    dano:"Debilidad o parálisis del lado opuesto del cuerpo, como ocurre en muchos ACV.",
    dato:"Las manos, la cara y la lengua tienen mucha más superficie cortical que la espalda o las piernas."},
-  {id:"somato",code:12,kind:"cortex",group:G2,name:"Corteza somatosensorial",color:"#ffa94d",view:"sup",
+  {id:"somato",code:12,kind:"cortex",group:G2,name:"Corteza somatosensorial",color:"#e08a5a",view:"sup",
    desc:"Franja del lóbulo parietal justo detrás del surco central (giro poscentral).",
    fn:["Recibe tacto, presión, temperatura, dolor y propiocepción","Mapa del cuerpo del lado opuesto (homúnculo sensorial)"],
    dano:"Pérdida o alteración de la sensibilidad en el lado opuesto del cuerpo.",
    dato:"Tras una amputación, este mapa se reorganiza: por eso algunas personas sienten un miembro fantasma (Ramachandran)."},
-  {id:"broca",code:13,kind:"cortex",group:G2,name:"Área de Broca",color:"#4dabf7",view:"izq",left:true,
+  {id:"broca",code:13,kind:"cortex",group:G2,name:"Área de Broca",color:"#3f6e8c",view:"izq",left:true,
    desc:"En el giro frontal inferior del hemisferio izquierdo (en la gran mayoría de los diestros).",
    fn:["Producción del habla","Gramática y armado de oraciones","Planificación de los movimientos articulatorios"],
    dano:"Afasia de Broca: habla lenta, entrecortada y con esfuerzo, con la comprensión relativamente conservada.",
    dato:"Paul Broca la describió en 1861 estudiando a un paciente que solo podía decir la sílaba “tan”."},
-  {id:"wernicke",code:14,kind:"cortex",group:G2,name:"Área de Wernicke",color:"#20c997",view:"izq",left:true,
+  {id:"wernicke",code:14,kind:"cortex",group:G2,name:"Área de Wernicke",color:"#5f8f6a",view:"izq",left:true,
    desc:"En la parte posterior del giro temporal superior del hemisferio izquierdo.",
    fn:["Comprensión del lenguaje hablado y escrito","Selección del significado de las palabras"],
    dano:"Afasia de Wernicke: habla fluida pero con poco sentido y dificultad para comprender.",
    dato:"Está conectada con el área de Broca por un haz de fibras, el fascículo arqueado (Carl Wernicke, 1874)."},
-  {id:"v1",code:15,kind:"cortex",group:G2,name:"Corteza visual primaria (V1)",color:"#b197fc",view:"post",lesson:"vision",
+  {id:"v1",code:15,kind:"cortex",group:G2,name:"Corteza visual primaria (V1)",color:"#8a6bb0",view:"post",lesson:"vision",
    desc:"En el polo occipital y alrededor de la cisura calcarina, en la cara interna del hemisferio.",
    fn:["Primera etapa cortical de la visión","Detecta bordes, orientaciones y contrastes","Mantiene un mapa ordenado del campo visual (retinotopía)"],
    dano:"Puntos ciegos (escotomas). Algunas personas responden a estímulos que dicen no ver: la visión ciega (blindsight).",
    dato:"Hubel y Wiesel ganaron el Nobel en 1981 al descubrir que sus neuronas responden a líneas con orientaciones específicas."},
-  {id:"talamo",kind:"deep",group:G3,name:"Tálamo",color:"#ff8fab",lesson:"vision",
+  {id:"talamo",kind:"deep",group:G3,name:"Tálamo",color:"#d4848f",lesson:"vision",
    desc:"Dos masas ovaladas en el centro del cerebro, a cada lado de la línea media.",
    fn:["Relevo de casi toda la información sensorial hacia la corteza (salvo el olfato)","Regulación del sueño, la vigilia y la conciencia","Filtro de la atención"],
    dano:"Pérdida de sensibilidad, dolor crónico (síndrome talámico) o alteraciones graves de la conciencia.",
    dato:"Muchas veces se lo llama “la puerta de la corteza”: recibe además muchas conexiones de vuelta desde ella."},
-  {id:"hipotalamo",kind:"deep",group:G3,name:"Hipotálamo",color:"#ffd43b",lesson:"estres",
+  {id:"hipotalamo",kind:"deep",group:G3,name:"Hipotálamo",color:"#e0b84a",lesson:"estres",
    desc:"Pequeña región debajo del tálamo, del tamaño de una almendra.",
    fn:["Homeostasis: temperatura, hambre, sed","Ritmo circadiano y sueño (núcleo supraquiasmático)","Controla la hipófisis y el sistema endocrino","Inicia la respuesta al estrés (CRH)"],
    dano:"Alteraciones del peso, la temperatura, el sueño o las hormonas.",
    dato:"Pesa unos 4 gramos y regula funciones de todo el cuerpo."},
-  {id:"hipofisis",kind:"deep",group:G3,name:"Hipófisis",color:"#fab005",lesson:"estres",
+  {id:"hipofisis",kind:"deep",group:G3,name:"Hipófisis",color:"#c98a1b",lesson:"estres",
    desc:"Glándula del tamaño de un garbanzo, colgada debajo del hipotálamo.",
    fn:["Libera hormonas que regulan otras glándulas: ACTH, TSH, LH y FSH","Hormona de crecimiento y prolactina","Su parte posterior libera oxitocina y vasopresina, producidas en el hipotálamo"],
    dano:"Los tumores hipofisarios (adenomas) pueden alterar casi cualquier sistema hormonal.",
    dato:"Durante mucho tiempo se la llamó “glándula maestra”, aunque en realidad obedece al hipotálamo."},
-  {id:"hipocampo",kind:"deep",group:G3,name:"Hipocampo",color:"#63e6be",lesson:"memoria",
+  {id:"hipocampo",kind:"deep",group:G3,name:"Hipocampo",color:"#6fa38f",lesson:"memoria",
    desc:"Estructura curva con forma de caballito de mar en la cara interna de cada lóbulo temporal.",
    fn:["Formación de memorias episódicas y declarativas","Navegación espacial (células de lugar)","Contextualizar recuerdos: dónde y cuándo"],
    dano:"Amnesia anterógrada: no poder formar recuerdos nuevos, como el paciente H.M. Es de las primeras regiones afectadas en el Alzheimer.",
    dato:"Los taxistas de Londres, que memorizan miles de calles, tienen el hipocampo posterior más grande (Maguire, 2000)."},
-  {id:"amigdala",kind:"deep",group:G3,name:"Amígdala",color:"#ff6b6b",lesson:"estres",
+  {id:"amigdala",kind:"deep",group:G3,name:"Amígdala",color:"#b8443a",lesson:"estres",
    desc:"Núcleo con forma de almendra delante del hipocampo, en cada lóbulo temporal.",
    fn:["Detección rápida de amenazas","Aprendizaje del miedo (condicionamiento)","Da carga emocional a los recuerdos"],
    dano:"La paciente S.M., con daño bilateral en la amígdala, casi no experimenta miedo.",
    dato:"Puede reaccionar a un estímulo amenazante antes de que seas consciente de él."},
-  {id:"ganglios",kind:"deep",group:G3,name:"Ganglios basales",color:"#748ffc",lesson:"recompensa",
+  {id:"ganglios",kind:"deep",group:G3,name:"Ganglios basales",color:"#6c7fa8",lesson:"recompensa",
    desc:"Conjunto de núcleos profundos: caudado, putamen y globo pálido, conectados con la sustancia negra.",
    fn:["Selección e inicio de movimientos","Formación de hábitos y rutinas","Aprendizaje por recompensa (el núcleo accumbens es parte del estriado ventral)"],
    dano:"Párkinson (pérdida de dopamina de la sustancia negra) o enfermedad de Huntington.",
    dato:"Cuando una acción se vuelve hábito, su control pasa en buena parte a los ganglios basales."},
-  {id:"calloso",kind:"deep",group:G3,name:"Cuerpo calloso",color:"#dee2e6",
+  {id:"calloso",kind:"deep",group:G3,name:"Cuerpo calloso",color:"#e8dccb",
    desc:"Gran haz de fibras con forma de arco que une los dos hemisferios.",
    fn:["Comunica e integra la información de ambos hemisferios","Coordina movimientos bilaterales"],
    dano:"En los pacientes de “cerebro dividido” (operados para tratar epilepsia), cada hemisferio puede actuar como si no supiera lo que hace el otro.",
    dato:"Tiene unos 200 millones de axones. Sperry ganó el Nobel en 1981 por los estudios de cerebro dividido junto a Gazzaniga."},
-  {id:"cerebelo",kind:"stem",group:G4,name:"Cerebelo",color:"#f783ac",
+  {id:"cerebelo",kind:"stem",group:G4,name:"Cerebelo",color:"#c98679",
    desc:"Estructura con finos pliegues horizontales debajo de los lóbulos occipitales, detrás del tronco.",
    fn:["Coordinación y precisión del movimiento","Equilibrio y postura","Aprendizaje motor (andar en bici, tocar un instrumento)","También participa en el lenguaje y la atención"],
    dano:"Ataxia: marcha inestable, falta de coordinación y temblor al intentar movimientos precisos.",
@@ -1416,14 +1538,14 @@ function renderList(){
   let html = "", last = null;
   REGIONS.filter(r => !q || norm(r.name + " " + r.desc + " " + r.fn.join(" ")).includes(q)).forEach(r => {
     if (r.group !== last){ html += `<li class="agroup">${esc(r.group)}</li>`; last = r.group; }
-    html += `<li><button class="aitem ${r.id === selId ? "sel" : ""}" data-id="${r.id}"><i style="background:${r.color}"></i>${esc(r.name)}</button></li>`;
+    html += `<li><button class="aitem ${r.id === selId ? "sel" : ""}" data-id="${r.id}"><em>${String(REGIONS.indexOf(r)+1).padStart(2,"0")}</em><i style="background:${r.color}"></i>${esc(r.name)}</button></li>`;
   });
   $("#alist").innerHTML = html || `<li class="empty">Sin resultados.</li>`;
 }
 function renderInfo(){
   const box = $("#ainfo");
   if (!selId){
-    box.innerHTML = `<span class="chip">Encéfalo humano</span><h3>Explorá el cerebro</h3>
+    box.innerHTML = `<span class="chip">Lámina I · Encéfalo humano</span><h3>Explorá el cerebro</h3>
       <p class="lead">Rotá el modelo y tocá cualquier parte para ver qué hace, qué pasa si se daña y un dato para recordarla.</p>
       <p style="margin-top:10px">Bajá la opacidad de la corteza o usá la vista medial para ver las estructuras profundas, como el hipocampo o la amígdala.</p>
       <div class="stats">
@@ -1436,7 +1558,7 @@ function renderInfo(){
     return;
   }
   const r = RBY[selId];
-  box.innerHTML = `<span class="chip"><i style="background:${r.color}"></i>${esc(r.group)}</span>
+  box.innerHTML = `<span class="chip"><i style="background:${r.color}"></i>Fig. ${REGIONS.indexOf(r)+1} · ${esc(r.group)}</span>
     <h3>${esc(r.name)}</h3><p class="lead">${esc(r.desc)}</p>
     <h6>Funciones</h6><ul>${r.fn.map(f => `<li>${esc(f)}</li>`).join("")}</ul>
     <h6>Si se daña</h6><p>${esc(r.dano)}</p>
@@ -1540,7 +1662,7 @@ function loop(now){
     label.style.display = "block";
     label.style.left = ((v3.x + 1)/2*host.clientWidth) + "px";
     label.style.top = ((1 - v3.y)/2*host.clientHeight) + "px";
-    label.querySelector("span").textContent = RBY[selId].name;
+    label.querySelector("span").innerHTML = `<b>${REGIONS.indexOf(RBY[selId])+1}</b>${esc(RBY[selId].name)}`;
   } else label.style.display = "none";
   // hover
   if (hoverEv && !down){
