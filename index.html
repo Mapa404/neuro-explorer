@@ -1025,6 +1025,7 @@ function showView(v){
   window.APP_VIEW = v;
   $("#viewAtlas").hidden = v !== "atlas"; $("#viewProc").hidden = v !== "proc";
   $("#navAtlas").setAttribute("aria-selected", v === "atlas"); $("#navProc").setAttribute("aria-selected", v === "proc");
+  document.title = v === "atlas" ? "Atlas 3D · Neuro Explorer" : `${L.title} · Neuro Explorer`;
   if (v === "atlas"){ stop(); requestAnimationFrame(() => window.atlasResize && window.atlasResize()); }
 }
 function setHash(h){ try { history.replaceState(null, "", "#" + h); } catch(e) { location.hash = h; } }
