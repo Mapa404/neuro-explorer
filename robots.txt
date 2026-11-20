@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://neuro-explorer-alpha.vercel.app/sitemap.xml
+Sitemap: https://explorer-neuro.vercel.app/sitemap.xml
