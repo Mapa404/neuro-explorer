@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://neuro-explorer-alpha.vercel.app/sitemap.xml
