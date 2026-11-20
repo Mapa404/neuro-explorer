@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Neuro Explorer · Atlas 3D del cerebro y neurociencia visual</title>
+<title>Atlas 3D · Neuro Explorer</title>
 <meta name="description" content="Atlas 3D interactivo del cerebro y lecciones animadas de neurociencia: neuronas, sinapsis, memoria, emociones, sueño, dolor y más. Gratis y en español.">
 <meta name="keywords" content="neurociencia, cerebro, atlas 3D, anatomía del cerebro, psicología, biopsicología, neuronas, sinapsis, potencial de acción, hipocampo, amígdala, lóbulos cerebrales">
 <meta name="author" content="Mapa Bianchi">
@@ -17,7 +17,7 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_AR">
 <meta property="og:site_name" content="Neuro Explorer">
-<meta property="og:title" content="Neuro Explorer · Aprendé cómo funciona el cerebro">
+<meta property="og:title" content="Atlas 3D · Neuro Explorer">
 <meta property="og:description" content="Atlas 3D interactivo del cerebro y lecciones animadas de neurociencia: neuronas, sinapsis, memoria, emociones, sueño, dolor y más. Gratis y en español.">
 <meta property="og:url" content="https://explorer-neuro.vercel.app/">
 <meta property="og:image" content="https://explorer-neuro.vercel.app/assets/og-image.jpg">
@@ -25,7 +25,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Modelo 3D del cerebro junto al título Neuro Explorer">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Neuro Explorer · Aprendé cómo funciona el cerebro">
+<meta name="twitter:title" content="Atlas 3D · Neuro Explorer">
 <meta name="twitter:description" content="Atlas 3D interactivo del cerebro y lecciones animadas de neurociencia: neuronas, sinapsis, memoria, emociones, sueño, dolor y más. Gratis y en español.">
 <meta name="twitter:image" content="https://explorer-neuro.vercel.app/assets/og-image.jpg">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Neuro Explorer","url":"https://explorer-neuro.vercel.app/","description":"Atlas 3D interactivo del cerebro y lecciones animadas de neurociencia: neuronas, sinapsis, memoria, emociones, sueño, dolor y más. Gratis y en español.","inLanguage":"es","applicationCategory":"EducationalApplication","operatingSystem":"Web","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Mapa Bianchi","url":"https://mapabianchi.online"},"educationalUse":"Autoaprendizaje","teaches":["Anatomía del encéfalo","Neurofisiología","Neurociencia cognitiva"]}</script>
@@ -1302,7 +1302,7 @@ function showView(v){
   window.APP_VIEW = v; document.body.dataset.view = v;
   $("#viewAtlas").hidden = v !== "atlas"; $("#viewProc").hidden = v !== "proc";
   $("#navAtlas").setAttribute("aria-selected", v === "atlas"); $("#navProc").setAttribute("aria-selected", v === "proc");
-  document.title = v === "atlas" ? "Neuro Explorer · Atlas 3D del cerebro y neurociencia visual" : `${L.title} · Neuro Explorer`;
+  document.title = v === "atlas" ? "Atlas 3D · Neuro Explorer" : `${L.title} · Neuro Explorer`;
   if (v === "atlas"){ stop(); requestAnimationFrame(() => window.atlasResize && window.atlasResize()); }
 }
 function setHash(h){ try { history.replaceState(null, "", "#" + h); } catch(e) { location.hash = h; } }
